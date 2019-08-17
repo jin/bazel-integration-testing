@@ -86,7 +86,8 @@ public class RepositoryCache {
   public Collection<String> bazelOptions() {
     // After 0.12.0, repository_cache is no longer experimental
     // https://github.com/bazelbuild/bazel/commit/6e0933886d3c6b7f68075da4bdb08500ce2b6f86
-    return Collections.singletonList("--experimental_repository_cache=" + cachePath);
+    // return Collections.singletonList("--experimental_repository_cache=" + cachePath);
+    return Collections.EMPTY_LIST;
   }
 
   /**

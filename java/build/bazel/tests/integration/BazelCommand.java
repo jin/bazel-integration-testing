@@ -134,18 +134,9 @@ public class BazelCommand {
                   "--max_idle_secs=10",
                   "--bazelrc=" + bazelRcPath));
 
-      // This would split the args "run //target -- hello world" into
-      // "run //target" and "-- hello world" ("hello world" being passed to the executable
-      // to run).
-      int terminator = args.indexOf("--");
-      if (terminator == -1) {
-        command.addAll(args);
-        command.addAll(repositoryCache.bazelOptions());
-      } else {
-        command.addAll(args.subList(0, terminator));
-        command.addAll(repositoryCache.bazelOptions());
-        command.addAll(args.subList(terminator, args.size()));
-      }
+      // Set the repository cache option first to allow users to override it later.
+      command.addAll(repositoryCache.bazelOptions());
+      command.addAll(args);
 
       Path relativeToWorkspaceFullPath = driver.currentWorkspace().resolve(workingDirectory);
 
